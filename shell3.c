@@ -8,10 +8,10 @@
 //parseIn is a function that deduse the command to arguments 
 //input: input from command-line , vector of command 
 //output: puts in the vector the command to interpet , returns the command size or -i if too long
-int parseIn(char *input, char **vector,int n,int m);
+int parseIn(char *input, char **vector);
 
 
 
 int main(){
-
+    
 }

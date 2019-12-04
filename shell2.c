@@ -17,9 +17,6 @@ int parseIn(char input[M], char **vector);
 
 int main(){
     char* argv[N+1];
-    char t[N+1][M] = {0};
-    for(int i=0;i<N+1;i++)
-        argv[i] = &t[i];
     int tmp;
     int i;
     char buffer[M],con;
