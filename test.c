@@ -1,23 +1,26 @@
-#include <string.h>
+#include <stdlib.h>
 #include <stdio.h>
+#include <sys/types.h>
+#include <wait.h>
+#include <unistd.h>
+#include <string.h>
 
+#define N 3
+#define M 100
 
-
-int parseIn(char* input, char **vector,int n,int m,int k){
+int parseIn(char input[M], char **vector){
     int i=0;
     int step;
-    while(i < n-1){
-        step = skipSpace(input,k);
+    
+    while(i < N){
+        step = skipSpace(input);
         if(step == -1)
             break;
         input = input + step;
-        k = k-step;
         if((step = copyTillSpace(input,vector[i])) == -1)
             break;
         input += step;
-        k -= step;
         i++;
-
     }
     vector[i] = NULL;
     return i;
@@ -25,9 +28,9 @@ int parseIn(char* input, char **vector,int n,int m,int k){
 }
 
 
-int skipSpace(char *src,int n){
+int skipSpace(char *src){
     int i=0;
-    while(src[i] == ' ' && i<n){
+    while(src[i] == ' ' && i<N){
         i++;
     }
     if(src[i] == '\0')
@@ -49,11 +52,10 @@ int copyTillSpace(char *src,char *dest){
 }
 
 int main(){
-    char arg[3][100];
-    char input[] = "ls -la";
-    char arg[3][40] = {"ls","-l",NULL};
-    char *vector[40] = arg;
-    printf(vector[0]);
-    printf(vector[1]);
-    
+    char buffer[100] = "ls -l";
+    char* argv[N+1];
+    char t[N+1][M] = {0};
+    for(int i=0;i<N+1;i++)
+        argv[i] = &t[i];
+    parseIn;
 }

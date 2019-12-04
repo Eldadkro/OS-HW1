@@ -10,7 +10,10 @@ int main(){
 
     int tmp;
     char buffer[100];
-    printf("Shell$** ");
+    printf("\nEnter <shell1> to run linux commands without parameters\n");
+	printf("Enter <shell2> to run linux commands with parameters\n");
+	printf("Enter <shell3 to> run commands to file editing\n");
+	printf("Shell$** ");
     scanf("%s",&buffer);
     while(strcmp("Exit",buffer)){
         if(strcmp("shell1",buffer) == 0)
