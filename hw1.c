@@ -38,7 +38,7 @@ void shell(){
 	printf("Enter <shell2> to run linux commands with parameters\n");
 	printf("Enter <shell3 to> run commands to file editing\n");
 	printf("Shell$** ");
-    gets(buffer);
+    gets(buffer,100,stdin);
     while(strcmp("Exit",buffer)){
 
         if(strcmp("shell1",buffer) == 0)
@@ -135,14 +135,18 @@ int parseIn(char input[M], char **vector, int n){
 }
 
 void shell3(){
-    char **argv;
+    char *argv[3],args[3][100] = {"","",""};
     char buffer[M];
     printf("shell3$** ");
     gets(buffer);
     while(strcmp("esc",buffer)){
         int size = parseIn(buffer,argv,3);
-        if(strcmp(argv[0],"copy") == 0)
+        for(int i=0;i<size;i++)
+            strcpy(args[i],argv[i]);
+        if(strcmp(argv[0],"copy") == 0){
             copyF(argv,size);
+            printf("\n");
+        }
         else if(strcmp(argv[0],"delete") == 0)
             deleteF(argv,size);
         else 
@@ -158,26 +162,29 @@ int copyF(char **argv,int n){
 
     char buffer[2];
     int output,input;
-
+    
     if(n<2){
         printf("not enough arguments\n");
         return -1;
     }
+    
     if(n == 2)
         output = 1;
-    else
+    else{
         if((output = open(argv[2],O_CREAT|O_WRONLY,S_IRWXU|S_IRWXG|S_IRWXO)) == -1){
             printf("couldn't open output file\n");
             return -1;
         }
+    }
     
     if((input = open(argv[1],O_RDONLY)) == -1){
         printf("couldn't open input\n");
         return -1;
     }
-    while(read(input,buffer,1) != 1){
+    while(read(input,buffer,1) == 1){
             write(output,buffer,1);
     }  
+    
 }
 
 int deleteF(char **argv,int n){
